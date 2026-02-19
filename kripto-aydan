@@ -1,0 +1,69 @@
+//1
+def caesar2(text, shift):
+    shift = (shift % 26 + 26) % 26
+
+    result = ""
+
+    for char in text:
+       
+        if char.isalpha():
+           
+            if char.isupper():
+                start = ord('A')  # 65
+            else:
+                start = ord('a')  # 97
+
+           
+            new_char = chr(
+                (ord(char) - start + shift) % 26 + start
+            )
+            result += new_char
+        else:
+           
+            result += char
+
+    return result
+
+print(caesar2("Aydan", 3))     # Dbgdq
+print(caesar2("Dbgdq", -3))   # Aydan
+
+
+
+
+//2
+def vigenere(text, key):
+    key = key.lower()
+    result = []
+    j = 0
+    
+    for char in text:
+        if char.isalpha():
+         
+            start = 65 if char.isupper() else 97
+            shift = ord(key[j % len(key)]) - 97
+            new_char = chr((ord(char) - start + shift) % 26 + start)
+            result.append(new_char)
+            j += 1
+        else:
+            result.append(char)
+    return "".join(result)
+print(vigenere("Aydan", "key"))
+
+
+
+
+
+//3
+def atbash(text):
+    result = ""
+    for char in text:
+        if char.isalpha():
+            if char.isupper():
+                start = ord('A')
+            else:
+                start = ord('a')
+            result += chr(start + (25 - (ord(char) - start)))
+        else:
+            result += char
+    return result
+
