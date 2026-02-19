@@ -1,0 +1,80 @@
+//1
+def caesar(text, shift):
+    a = "abcdefghijklmnopqrstuvwxyz"
+    shift = (shift % 26 + 26) % 26
+    result = []
+
+    for char in text:
+        lower = char.lower()
+        i = a.find(lower)
+
+        if i == -1:
+            result.append(char)
+            continue
+
+        new_char = a[(i + shift) % 26]
+
+        if char.isupper():
+            result.append(new_char.upper())
+        else:
+            result.append(new_char)
+
+    return "".join(result)
+
+
+print(caesar("Esmiralda", 3))
+print(caesar("Hvpludogd", -3))
+
+//2
+def atbash(text):
+    normal = "abcdefghijklmnopqrstuvwxyz"
+    reversed_ = "zyxwvutsrqponmlkjihgfedcba"
+    result = []
+
+    for char in text:
+        lower = char.lower()
+        index = normal.find(lower)
+
+        if index == -1:
+            result.append(char)
+            continue
+
+        new_char = reversed_[index]
+
+        if char.isupper():
+            result.append(new_char.upper())
+        else:
+            result.append(new_char)
+
+    return "".join(result)
+
+
+print(atbash("Esmiralda"))
+
+//3
+def vigenere(text, key):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    key = key.lower()
+    j = 0
+    result = []
+
+    for char in text:
+        lower = char.lower()
+        if lower not in alphabet:
+            result.append(char)
+            continue
+        
+        i = alphabet.find(lower)
+        shift = alphabet.find(key[j % len(key)])
+        new_char = alphabet[(i + shift) % 26]
+        
+        if char.isupper():
+            result.append(new_char.upper())
+        else:
+            result.append(new_char)
+            
+        j += 1
+        
+    return "".join(result)
+
+print(vigenere("Esmiralda", "key"))
