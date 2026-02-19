@@ -1,0 +1,80 @@
+//1
+def caesar_cipher(text, shift):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    result = ""
+
+    shift = shift % 26
+
+    for char in text:
+        lower_char = char.lower()
+        index = alphabet.find(lower_char)
+
+        if index == -1:
+            result += char
+        else:
+            new_index = (index + shift + 26) % 26
+            new_char = alphabet[new_index]
+
+            if char.isupper():
+                result += new_char.upper()
+            else:
+                result += new_char
+
+    return result
+
+
+print(caesar_cipher("Adelya", 3))
+print(caesar_cipher("Dghobd", -3))
+
+
+
+//2
+
+def atbash(text):
+    result = ""
+
+    for char in text:
+        code = ord(char)
+
+        # маленькие буквы a-z
+        if 97 <= code <= 122:
+            result += chr(122 - (code - 97))
+
+        # большие буквы A-Z
+        elif 65 <= code <= 90:
+            result += chr(90 - (code - 65))
+
+        else:
+            result += char
+
+    return result
+
+
+print(atbash("Adelya"))
+
+
+
+//3
+
+def vigenere(text, key):
+    alphabet = "abcdefghijklmnopqrstuvwxyz"
+    result = ""
+    key = key.lower()
+    j = 0  # индекс для ключа
+
+    for i in range(len(text)):
+        letter = text[i].lower()
+        index = alphabet.find(letter)
+
+        if index == -1:
+            result += text[i]
+        else:
+            shift = alphabet.find(key[j % len(key)])
+            new_index = (index + shift) % 26
+            new_char = alphabet[new_index]
+
+            result += new_char
+            j += 1
+
+    return result
+
